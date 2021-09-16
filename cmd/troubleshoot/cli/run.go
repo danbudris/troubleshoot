@@ -124,6 +124,9 @@ func runTroubleshoot(v *viper.Viper, arg string) error {
 					c.Println(fmt.Sprintf("%s\r * %v", cursor.ClearEntireLine(), msg))
 				case string:
 					currentDir = filepath.Base(msg)
+					if !interactive {
+						fmt.Printf("\rCollecting support bundle %s\n", currentDir)
+					}
 				}
 			case <-finishedCh:
 				fmt.Printf("\r%s\r", cursor.ClearEntireLine())
@@ -132,14 +135,10 @@ func runTroubleshoot(v *viper.Viper, arg string) error {
 				if currentDir == "" {
 					if interactive {
 						fmt.Printf("\r%s \033[36mCollecting support bundle\033[m %s", cursor.ClearEntireLine(), s.Next())
-					} else {
-						fmt.Printf("\r%sCollecting support bundle\n", cursor.ClearEntireLine())
 					}
 				} else {
 					if interactive {
 						fmt.Printf("\r%s \033[36mCollecting support bundle\033[m %s %s", cursor.ClearEntireLine(), s.Next(), currentDir)
-					} else {
-						fmt.Printf("\rCollecting support bundle %s\n", currentDir)
 					}
 				}
 			}
