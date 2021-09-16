@@ -133,13 +133,13 @@ func runTroubleshoot(v *viper.Viper, arg string) error {
 					if interactive {
 						fmt.Printf("\r%s \033[36mCollecting support bundle\033[m %s", cursor.ClearEntireLine(), s.Next())
 					} else {
-						fmt.Printf("\r%sCollecting support bundle", cursor.ClearEntireLine())
+						fmt.Printf("\r%sCollecting support bundle\n", cursor.ClearEntireLine())
 					}
 				} else {
 					if interactive {
 						fmt.Printf("\r%s \033[36mCollecting support bundle\033[m %s %s", cursor.ClearEntireLine(), s.Next(), currentDir)
 					} else {
-						fmt.Printf("\r%sCollecting support bundle %s", cursor.ClearEntireLine(), currentDir)
+						fmt.Printf("\rCollecting support bundle %s\n", currentDir)
 					}
 				}
 			}
