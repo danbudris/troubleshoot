@@ -200,7 +200,7 @@ func runTroubleshoot(v *viper.Viper, arg string) error {
 				c.Printf("%s\r * Failed to format analysis: %v\n", cursor.ClearEntireLine(), err)
 			}
 
-			fmt.Printf("\n%s\n", formatted)
+			fmt.Printf("analyzerResults=\n%s\n", formatted)
 		}
 	}
 
@@ -213,7 +213,7 @@ the %s Admin Console to begin analysis.`
 			msg = fmt.Sprintf(f, appName, archivePath, appName)
 		}
 
-		fmt.Printf("%s\n", msg)
+		fmt.Printf("archivePath=%s\n", msg)
 
 		return nil
 	}
