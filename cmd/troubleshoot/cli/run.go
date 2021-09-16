@@ -129,12 +129,10 @@ func runTroubleshoot(v *viper.Viper, arg string) error {
 				fmt.Printf("\r%s\r", cursor.ClearEntireLine())
 				return
 			case <-time.After(time.Millisecond * 100):
-				if currentDir == "" && interactive {
+				if currentDir == "" {
 					fmt.Printf("\r%s \033[36mCollecting support bundle\033[m %s", cursor.ClearEntireLine(), s.Next())
-				} else if interactive {
-					fmt.Printf("\r%s \033[36mCollecting support bundle\033[m %s %s", cursor.ClearEntireLine(), s.Next(), currentDir)
 				} else {
-					fmt.Printf("%sCollecting support bundle %s", cursor.ClearEntireLine(), currentDir)
+					fmt.Printf("\r%s \033[36mCollecting support bundle\033[m %s %s", cursor.ClearEntireLine(), s.Next(), currentDir)
 				}
 			}
 		}
@@ -188,6 +186,7 @@ func runTroubleshoot(v *viper.Viper, arg string) error {
 				interactive = false
 			}
 		} else {
+			close(finishedCh)
 			data := convert.FromAnalyzerResult(analyzeResults)
 			formatted, err := json.MarshalIndent(data, "", "    ")
 			if err != nil {
