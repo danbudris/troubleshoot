@@ -1,6 +1,7 @@
 package convert
 
 import (
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"strings"
@@ -68,7 +69,18 @@ func FromAnalyzerResult(input []*analyze.AnalyzeResult) []*Result {
 	reg := regexp.MustCompile("[^a-zA-Z0-9]+")
 
 	result := make([]*Result, 0)
-	for _, i := range input {
+	for index, i := range input {
+		if i == nil {
+			fmt.Printf("i is nil at index %d", index)
+			continue
+		} else {
+			fmt.Printf("i is not nil at index %d", index)
+			out, err := json.Marshal(i)
+			if err != nil {
+				fmt.Printf("error when marshalling json: %v", err)
+			}
+			fmt.Println(string(out))
+		}
 		name := reg.ReplaceAllString(strings.ToLower(i.Title), ".")
 		r := &Result{
 			Meta: Meta{
